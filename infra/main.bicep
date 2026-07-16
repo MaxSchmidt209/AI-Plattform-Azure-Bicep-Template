@@ -68,13 +68,10 @@ param containerAppsEnvironmentName string = 'managedEnvironment-ingsoftinterwat-
 param containerAppName string = 'interwatt-ai-chatbot-api'
 
 @description('Key Vault secret URL for Azure OpenAI key reference.')
-param openAiKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/azureopenaikey'
+param openAiKeyVaultSecretUrl string = ''
 
 @description('Key Vault secret URL for Azure AI Search key reference.')
-param searchKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/azuresearchkey'
-
-@description('Key Vault secret URL for registry password reference (legacy compatibility).')
-param registryPasswordKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/reg-pswd'
+param searchKeyVaultSecretUrl string = ''
 
 var tags = {
   Owner: 'Product Group IIW'
@@ -192,7 +189,6 @@ module containerApp './modules/container-app.bicep' = {
     containerImageTag: containerImageTag
     openAiKeyVaultSecretUrl: openAiKeyVaultSecretUrl
     searchKeyVaultSecretUrl: searchKeyVaultSecretUrl
-    registryPasswordKeyVaultSecretUrl: registryPasswordKeyVaultSecretUrl
     tags: tags
   }
 }
