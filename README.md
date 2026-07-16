@@ -1,0 +1,1 @@
+# AI-Plattform-Azure-Bicep-Template
