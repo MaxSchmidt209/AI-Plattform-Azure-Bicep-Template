@@ -27,7 +27,7 @@ resource searchService 'Microsoft.Search/searchServices@2025-05-01' = {
     replicaCount: 1
     partitionCount: 1
     semanticSearch: 'free'
-    hostingMode: 'default'
+    hostingMode: 'Default'
   }
 }
 

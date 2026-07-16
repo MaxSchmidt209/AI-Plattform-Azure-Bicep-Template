@@ -68,13 +68,13 @@ param containerAppsEnvironmentName string = 'managedEnvironment-ingsoftinterwat-
 param containerAppName string = 'interwatt-ai-chatbot-api'
 
 @description('Key Vault secret URL for Azure OpenAI key reference.')
-param openAiKeyVaultSecretUrl string = 'https://<key-vault-name>.vault.azure.net/secrets/azureopenaikey'
+param openAiKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/azureopenaikey'
 
 @description('Key Vault secret URL for Azure AI Search key reference.')
-param searchKeyVaultSecretUrl string = 'https://<key-vault-name>.vault.azure.net/secrets/azuresearchkey'
+param searchKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/azuresearchkey'
 
 @description('Key Vault secret URL for registry password reference (legacy compatibility).')
-param registryPasswordKeyVaultSecretUrl string = 'https://<key-vault-name>.vault.azure.net/secrets/reg-pswd'
+param registryPasswordKeyVaultSecretUrl string = 'https://<key-vault-name>.${environment().suffixes.keyvaultDns}/secrets/reg-pswd'
 
 var tags = {
   Owner: 'Product Group IIW'
@@ -165,9 +165,6 @@ module rbac './modules/rbac.bicep' = {
     openAiName: openAi.outputs.openAiName
     searchName: aiSearch.outputs.searchName
   }
-  dependsOn: [
-    containerRegistry
-  ]
 }
 
 module containerAppsEnv './modules/container-apps-env.bicep' = {
@@ -198,9 +195,6 @@ module containerApp './modules/container-app.bicep' = {
     registryPasswordKeyVaultSecretUrl: registryPasswordKeyVaultSecretUrl
     tags: tags
   }
-  dependsOn: [
-    containerAppsEnv
-  ]
 }
 
 output logAnalyticsWorkspaceId string = logAnalytics.outputs.workspaceId
