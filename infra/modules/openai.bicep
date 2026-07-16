@@ -14,6 +14,15 @@ param publicNetworkAccess string
 @description('Common tags for all resources.')
 param tags object
 
+@description('Deployment name for GPT-5.4 mini.')
+param gptMiniDeploymentName string = 'gpt-5.4-mini-beispiel-fuer-julius'
+
+@description('Deployment name for GPT-5.4 nano.')
+param gptNanoDeploymentName string = 'gpt-5.4-nano'
+
+@description('Deployment name for text-embedding-3-small.')
+param embeddingDeploymentName string = 'text-embedding-3-small'
+
 resource openAiAccount 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   name: openAiName
   location: location
@@ -34,7 +43,7 @@ resource openAiAccount 'Microsoft.CognitiveServices/accounts@2025-04-01-preview'
 }
 
 resource deploymentGptMini 'Microsoft.CognitiveServices/accounts/deployments@2025-04-01-preview' = {
-  name: 'gpt-5.4-mini-beispiel-fuer-julius'
+  name: gptMiniDeploymentName
   parent: openAiAccount
   sku: {
     name: 'GlobalStandard'
@@ -51,7 +60,7 @@ resource deploymentGptMini 'Microsoft.CognitiveServices/accounts/deployments@202
 }
 
 resource deploymentGptNano 'Microsoft.CognitiveServices/accounts/deployments@2025-04-01-preview' = {
-  name: 'gpt-5.4-nano'
+  name: gptNanoDeploymentName
   parent: openAiAccount
   sku: {
     name: 'GlobalStandard'
@@ -68,7 +77,7 @@ resource deploymentGptNano 'Microsoft.CognitiveServices/accounts/deployments@202
 }
 
 resource deploymentEmbedding 'Microsoft.CognitiveServices/accounts/deployments@2025-04-01-preview' = {
-  name: 'text-embedding-3-small'
+  name: embeddingDeploymentName
   parent: openAiAccount
   sku: {
     name: 'GlobalStandard'
